@@ -1,0 +1,6 @@
+@ApiSkeleton_HostAddress = http://localhost:5041
+
+GET {{ApiSkeleton_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
