@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Persistances\Migrations\" />
+    <Folder Include="Persistences\Migrations\docs\" />
     <Folder Include="Repositories\Modules\" />
     <Folder Include="Repositories\Masters\" />
   </ItemGroup>

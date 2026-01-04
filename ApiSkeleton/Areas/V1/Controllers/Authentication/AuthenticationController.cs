@@ -4,10 +4,10 @@ using RifqiAmmarR.ApiSkeleton.Api.Contracts.Auth.Login;
 using RifqiAmmarR.ApiSkeleton.Api.Contracts.Auth.Register;
 using RifqiAmmarR.ApiSkeleton.Application.Common.Constans;
 using RifqiAmmarR.ApiSkeleton.Application.DTOs.Users;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Login;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Logout;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.RefreshToken;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Register;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.Login;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.Logout;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.RefreshToken;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.Register;
 using RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.Constants;
 using System.Security.Claims;
 
@@ -48,7 +48,7 @@ public class AuthenticationController : ApiControllerBase
         return CreatedAtAction(nameof(Register), result.Username);
     }
 
-    [HttpPost("login")]
+    [HttpPost(ApiEndPoint.V1.Authentications.RouteTemplateFor.Login)]
     public async Task<IActionResult> Login(LoginRequest command)
     {
         try
@@ -72,7 +72,7 @@ public class AuthenticationController : ApiControllerBase
     }
 
     [Authorize]
-    [HttpGet("me")]
+    [HttpGet(ApiEndPoint.V1.Authentications.RouteTemplateFor.Me)]
     public IActionResult Me()
     {
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -83,7 +83,8 @@ public class AuthenticationController : ApiControllerBase
         return Ok(new { userId, role, email, userName });
     }
 
-    [HttpPost("refresh")]
+    [Authorize]
+    [HttpPost(ApiEndPoint.V1.Authentications.RouteTemplateFor.RefreshToken)]
     public async Task<IActionResult> Refresh(CancellationToken cancellationToken)
     {
         await _refreshToken.Handle(cancellationToken);
@@ -91,10 +92,10 @@ public class AuthenticationController : ApiControllerBase
     }
 
     [Authorize]
-    [HttpPost("logout")]
-    public async Task<IActionResult> Logout()
+    [HttpPost(ApiEndPoint.V1.Authentications.RouteTemplateFor.Logut)]
+    public async Task<IActionResult> Logout( CancellationToken cancellationToken)
     {
-        await _logoutAsync.Handle();
+        await _logoutAsync.Handle(cancellationToken);
         return Ok();
     }
 

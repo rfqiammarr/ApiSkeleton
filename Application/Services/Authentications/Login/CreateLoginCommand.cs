@@ -1,7 +1,7 @@
 ﻿using RifqiAmmarR.ApiSkeleton.Application.DTOs.Users;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.LoginRepository;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Authentication;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Login;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.Login;
 
 namespace RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.Login;
 

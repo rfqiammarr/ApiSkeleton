@@ -1,12 +1,13 @@
-﻿using Application.Interfaces.Services.Persistance;
-using RifqiAmmarR.ApiSkeleton.Domain.Entities;
-using Infrastructure.Authentications;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using RifqiAmmarR.ApiSkeleton.Application.DTOs.Users;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.RefreshTokenRepository;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Authentication;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
+using RifqiAmmarR.ApiSkeleton.Domain.Entities;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Authentications;
+using System.Security.Claims;
 
 namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Repositories.Users.RefreshTokenRepository;
 
@@ -35,7 +36,7 @@ public class GetRefreshTokenRepository : IGetRefreshTokenRepository
             .FirstOrDefaultAsync(x =>
                 x.Token == refreshToken &&
                 x.RevokedAt == null &&
-                x.ExpiresAt > DateTime.UtcNow);
+                x.ExpiresAt > DateTime.UtcNow, cancellationToken);
 
         if (tokenEntity == null)
             throw new UnauthorizedAccessException("Invalid credentials");
@@ -60,8 +61,12 @@ public class GetRefreshTokenRepository : IGetRefreshTokenRepository
             PermissionCode = user.Permission.PermissionCode,
         };
 
-        // 🔁 Rotate refresh token
+        // Rotate refresh token
         tokenEntity.RevokedAt = DateTime.UtcNow;
+
+        var CreatedBy = _httpContextAccessor.HttpContext?
+            .User
+            .FindFirstValue(ClaimTypes.Name);
 
         var newRefreshToken = _authService.GenerateRefreshToken();
         await _context.RefreshTokens.AddAsync(new RefreshToken

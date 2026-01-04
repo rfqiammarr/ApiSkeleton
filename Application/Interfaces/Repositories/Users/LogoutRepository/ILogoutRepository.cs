@@ -2,5 +2,5 @@
 
 public interface ILogoutRepository
 {
-    Task Handle();
+    Task Handle(CancellationToken cancellationToken);
 }

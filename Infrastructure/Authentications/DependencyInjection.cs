@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Authentication;
 using RifqiAmmarR.ApiSkeleton.Infrastructure.Authentications;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Authentications;
 using System.Text;
 
 namespace Infrastructure.Authentications;

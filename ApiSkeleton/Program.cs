@@ -1,21 +1,28 @@
 ﻿using Infrastructure.CORS;
 using Microsoft.EntityFrameworkCore;
+using RifqiAmmarR.ApiSkeleton.Api.Middlewares;
 using RifqiAmmarR.ApiSkeleton.Application;
 using RifqiAmmarR.ApiSkeleton.Infrastructure;
-using RifqiAmmarR.ApiSkeleton.Api.Middlewares;
-using RifqiAmmarR.ApiSkeleton.Infrastructure.Persistances.Extension;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Authentications;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.Extension;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var corsOptions = builder.Configuration
     .GetSection(nameof(CorsOptions))
     .Get<CorsOptions>()
     ?? throw new InvalidOperationException("CorsOptions not configured");
+
+// BIND JwtOptions
+builder.Services
+    .AddOptions<JwtOptions>()
+    .Bind(builder.Configuration.GetSection(nameof(JwtOptions)))
+    .Validate(o => !string.IsNullOrWhiteSpace(o.Key), "Jwt Key is required")
+    .ValidateOnStart();
 
 
 // Layer
@@ -26,7 +33,6 @@ var app = builder.Build();
 
 await app.InitializeDatabaseAsync();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
@@ -37,9 +43,10 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseCors(corsOptions.PolicyName);
 app.UseHttpsRedirection();
 
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+

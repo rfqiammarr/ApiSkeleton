@@ -1,9 +1,9 @@
-﻿using RifqiAmmarR.ApiSkeleton.Domain.Abstracts;
+﻿namespace RifqiAmmarR.ApiSkeleton.Domain.Entities;
 
-namespace RifqiAmmarR.ApiSkeleton.Domain.Entities;
-
-public class RefreshToken : Entity
+public class RefreshToken
 {
+    public Guid Id { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public Guid UserId { get; set; }
     public string Token { get; set; } = default!;
     public DateTime ExpiresAt { get; set; }

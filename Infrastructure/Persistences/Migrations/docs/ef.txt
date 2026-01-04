@@ -1,0 +1,5 @@
+//Migration
+dotnet ef migrations add InitialCreate -p Infrastructure/Infrastructure.csproj -s ApiSkeleton/ApiSkeleton.csproj -o Persistences/Migrations
+
+//Update Database
+dotnet ef database update -p Infrastructure/Infrastructure.csproj -s ApiSkeleton/ApiSkeleton.csproj

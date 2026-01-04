@@ -1,8 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Login;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Logout;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.RefreshToken;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Register;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.Login;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.Logout;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.RefreshToken;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.Register;
 using RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.GetRefreshToken;
 using RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.Login;
 using RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.Logout;

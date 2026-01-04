@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Authentications;
+﻿namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Authentications;
 
 public class JwtOptions
 {

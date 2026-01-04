@@ -1,12 +1,12 @@
-﻿using Application.Interfaces.Services.Persistance;
-using Infrastructure.Authentications;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using RifqiAmmarR.ApiSkeleton.Application.DTOs.Users;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Authentication;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Security;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Authentications;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -32,12 +32,14 @@ public class AuthService : IAuthService
     public async Task<UserDto> AuthenticateAsync(UserDto userDto)
     {
         var user = await _context.Users
+            .Include(u => u.Role)
+            .Include(u => u.Permission)
             .SingleOrDefaultAsync(x => x.Email == userDto.Email || x.Username == userDto.Username);
 
         if (user is null) return null;
         if (!user.IsActive) return null;
 
-        var valid = _hasher.Verify(userDto.Password, user.PasswordHash);
+        var valid = _hasher.Verify(user.PasswordHash, userDto.Password);
         if (!valid) return null;
 
         return new UserDto 

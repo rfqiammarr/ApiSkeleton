@@ -1,5 +1,5 @@
 ﻿using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.RefreshTokenRepository;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.RefreshToken;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.RefreshToken;
 
 namespace RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.GetRefreshToken;
 
