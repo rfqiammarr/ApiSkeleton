@@ -1,6 +1,6 @@
 ﻿using ApiSkeleton.Application.Common.Responses;
 
-namespace ApiSkeleton.Application.Common.Extensions;
+namespace RifqiAmmarR.ApiSkeleton.Application.Common.Extensions;
 
 public static class ListExtensions
 {

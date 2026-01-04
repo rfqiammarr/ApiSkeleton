@@ -17,11 +17,8 @@
     <Folder Include="Common\Attributes\" />
     <Folder Include="Common\Enums\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Interfaces\Repositories\Masters\" />
-    <Folder Include="Interfaces\Repositories\Modules\" />
-    <Folder Include="Interfaces\Services\Modules\" />
-    <Folder Include="Services\Modules\" />
-    <Folder Include="Services\Masters\" />
+    <Folder Include="Interfaces\Repositories\Main\" />
+    <Folder Include="Interfaces\Services\Main\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 

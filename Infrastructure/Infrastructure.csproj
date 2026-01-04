@@ -15,8 +15,7 @@
 
   <ItemGroup>
     <Folder Include="Persistences\Migrations\docs\" />
-    <Folder Include="Repositories\Modules\" />
-    <Folder Include="Repositories\Masters\" />
+    <Folder Include="Repositories\Main\" />
   </ItemGroup>
 
   <ItemGroup>
