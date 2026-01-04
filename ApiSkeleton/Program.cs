@@ -1,7 +1,9 @@
 ﻿using Infrastructure.CORS;
+using Microsoft.EntityFrameworkCore;
 using RifqiAmmarR.ApiSkeleton.Application;
 using RifqiAmmarR.ApiSkeleton.Infrastructure;
-using RifqiAmmarR.ApiSKeleton.Api.Middlewares;
+using RifqiAmmarR.ApiSkeleton.Api.Middlewares;
+using RifqiAmmarR.ApiSkeleton.Infrastructure.Persistances.Extension;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,11 +24,13 @@ builder.Services.AddApplication();
 
 var app = builder.Build();
 
+await app.InitializeDatabaseAsync();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference();
+    app.MapScalarApiReference("/scalar");
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();

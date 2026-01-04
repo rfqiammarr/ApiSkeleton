@@ -1,9 +1,9 @@
 ﻿using Application.Interfaces.Services.Persistance;
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RifqiAmmarR.ApiSkeleton.Domain.Entities;
 
-namespace Infrastructure.Persistances.Configurations;
+namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Persistances.Configurations;
 
 public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
 {

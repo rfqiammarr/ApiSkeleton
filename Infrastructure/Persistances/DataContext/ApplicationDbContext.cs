@@ -1,9 +1,9 @@
 ﻿using Application.Interfaces.Services.Persistance;
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
+using RifqiAmmarR.ApiSkeleton.Domain.Entities;
 using System.Reflection;
 
-namespace Infrastructure.Persistances.DataContext;
+namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Persistances.DataContext;
 
 public class ApplicationDbContext : DbContext, IAppDbContext
 {
@@ -16,6 +16,7 @@ public class ApplicationDbContext : DbContext, IAppDbContext
     public DbSet<Role> Roles { get; set; }
     public DbSet<Permission> Permissions { get; set; }
     public DbSet<RefreshToken> RefreshTokens { get; set; }
+    public DbSet<RolePermission> RolePermissions { get; set; }
     #endregion
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)

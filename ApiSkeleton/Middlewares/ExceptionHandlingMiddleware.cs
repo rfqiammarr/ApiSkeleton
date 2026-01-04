@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Net;
 
-namespace RifqiAmmarR.ApiSKeleton.Api.Middlewares;
+namespace RifqiAmmarR.ApiSkeleton.Api.Middlewares;
 
 public class ExceptionHandlingMiddleware(RequestDelegate next)
 {

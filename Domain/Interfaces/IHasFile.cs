@@ -1,4 +1,4 @@
-﻿namespace RifqiAmmarR.FinanTrackr.Domain.Interfaces;
+﻿namespace RifqiAmmarR.ApiSkeleton.Domain.Interfaces;
 
 public interface IHasFile
 {

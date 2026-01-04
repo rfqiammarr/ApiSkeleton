@@ -1,4 +1,4 @@
-﻿namespace RifqiAmmarR.ApiSKeleton.Api.Areas.V1;
+﻿namespace RifqiAmmarR.ApiSkeleton.Api.Areas.V1;
 
 public static class ApiVersioning
 {

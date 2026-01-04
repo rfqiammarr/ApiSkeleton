@@ -1,12 +1,12 @@
 ﻿using Application.Interfaces.Services.Persistance;
-using Infrastructure.Persistances;
-using Infrastructure.Persistances.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RifqiAmmarR.ApiSkeleton.Infrastructure.Persistances.DataContext;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistances;
 
-namespace ApiSkeleton.Infrastructure.Persistances;
+namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Persistances;
 
 public static class DependencyInjection
 {
@@ -14,6 +14,8 @@ public static class DependencyInjection
     {
         var databaseOptions = configuration.GetSection("DatabaseOptions").Get<DatabaseOptions>()!;
         var migrationsAssembly = typeof(ApplicationDbContext).Assembly.FullName;
+
+        services.Configure<DatabaseInitializationOptions>(configuration.GetSection("DatabaseInitialization"));
 
         services.AddDbContext<ApplicationDbContext>(options =>
         {

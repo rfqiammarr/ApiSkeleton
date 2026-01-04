@@ -1,6 +1,6 @@
-﻿using RifqiAmmarR.FinanTrackr.Domain.Interfaces;
+﻿using RifqiAmmarR.ApiSkeleton.Domain.Interfaces;
 
-namespace Domain.Abstracts;
+namespace RifqiAmmarR.ApiSkeleton.Domain.Abstracts;
 
 public abstract class ModifiedEntity : Entity, IDeletable, IUpdatable
 {

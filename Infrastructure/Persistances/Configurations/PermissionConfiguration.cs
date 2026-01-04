@@ -1,9 +1,9 @@
 ﻿using Application.Interfaces.Services.Persistance;
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RifqiAmmarR.ApiSkeleton.Domain.Entities;
 
-namespace Infrastructure.Persistances.Configurations;
+namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Persistances.Configurations;
 
 public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
 {
@@ -12,8 +12,8 @@ public class PermissionConfiguration : IEntityTypeConfiguration<Permission>
         builder.ToTable($"{nameof(IAppDbContext.Permissions)}");
         if(builder is not null)
         {
-            builder.HasKey(x => x.Id);
-            builder.Property(x => x.Id)
+            builder.HasKey(x => x.PermissionId);
+            builder.Property(x => x.PermissionId)
                 .HasColumnName("PermissionId");
             builder.Property(x => x.PermissionCode)
                 .IsRequired()

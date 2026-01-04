@@ -1,4 +1,4 @@
-﻿namespace ApiSkeleton.Application.Common.Exceptions;
+﻿namespace RifqiAmmarR.ApiSkeleton.Application.Common.Exceptions;
 // Base class for all exceptions
 public class ApplicationException(string message, int statusCode) : Exception(message)
 {

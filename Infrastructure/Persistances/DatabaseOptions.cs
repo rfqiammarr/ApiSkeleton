@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.Persistances;
+﻿namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Persistances;
 
 public class DatabaseOptions
 {

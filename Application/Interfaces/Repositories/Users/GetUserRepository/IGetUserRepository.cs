@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Application.Interfaces.Repositories.Users
+namespace RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.GetUserRepository
 {
     internal interface IGetUserRepository
     {

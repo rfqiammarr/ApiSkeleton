@@ -1,9 +1,9 @@
 ﻿using Application.Interfaces.Services.Persistance;
-using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using RifqiAmmarR.ApiSkeleton.Domain.Entities;
 
-namespace Infrastructure.Persistances.Configurations;
+namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Persistances.Configurations;
 
 public class RoleConfiguration : IEntityTypeConfiguration<Role>
 {
@@ -13,9 +13,9 @@ public class RoleConfiguration : IEntityTypeConfiguration<Role>
         if (builder is not null)
         {
             // Primary Key
-            builder.HasKey(r => r.Id);
+            builder.HasKey(r => r.RoleId);
             // Properties
-            builder.Property(r => r.Id)
+            builder.Property(r => r.RoleId)
                    .HasColumnName("RoleId");
             builder.Property(r => r.RoleName)
                    .IsRequired()

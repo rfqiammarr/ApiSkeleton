@@ -1,11 +1,12 @@
-﻿using ApiSkeleton.Application.Common.Exceptions;
-using Application.Interfaces.Services.Persistance;
-using Domain.Entities;
+﻿using Application.Interfaces.Services.Persistance;
+using RifqiAmmarR.ApiSkeleton.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using RifqiAmmarR.ApiSkeleton.Application.Common.Helpers.GuidGenerator;
 using RifqiAmmarR.ApiSkeleton.Application.DTOs.Users;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Security;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Register;
+using RifqiAmmarR.ApiSkeleton.Application.Common.Exceptions;
+using System.Security.Claims;
 
 namespace RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.Register;
 
@@ -32,8 +33,9 @@ public class CreateRegisterCommand(IAppDbContext _context, IPasswordHasher _hash
             PasswordHash = hash,
             Email = request.Email,
             IsActive = true,
-            RoleId = request.RoleId, 
-            PermissionId = request.PermissionId
+            RoleId = 2, 
+            PermissionId = 1,
+            CreatedBy = ClaimTypes.Name
         };
          
          await _context.Users.AddAsync(data, cancellationToken);

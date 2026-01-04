@@ -1,4 +1,4 @@
-﻿namespace Domain.Interfaces;
+﻿namespace RifqiAmmarR.ApiSkeleton.Domain.Interfaces;
 
 public interface ICreatable
 {

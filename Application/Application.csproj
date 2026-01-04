@@ -19,7 +19,6 @@
     <Folder Include="Exceptions\" />
     <Folder Include="Interfaces\Repositories\Masters\" />
     <Folder Include="Interfaces\Repositories\Modules\" />
-    <Folder Include="Interfaces\Services\User\Login\" />
     <Folder Include="Interfaces\Services\Modules\" />
     <Folder Include="Services\Modules\" />
     <Folder Include="Services\Masters\" />

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Authentication;
+using RifqiAmmarR.ApiSkeleton.Infrastructure.Authentications;
 using System.Text;
 
 namespace Infrastructure.Authentications;
@@ -44,6 +45,7 @@ public static class DependencyInjection
         });
 
         service.AddScoped<IAuthService, AuthService>();
+        service.AddHttpContextAccessor();
 
         return service;
     }

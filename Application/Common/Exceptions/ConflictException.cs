@@ -1,4 +1,4 @@
-﻿namespace ApiSkeleton.Application.Common.Exceptions;
+﻿namespace RifqiAmmarR.ApiSkeleton.Application.Common.Exceptions;
 
 public class ConflictException : ApplicationException
 {

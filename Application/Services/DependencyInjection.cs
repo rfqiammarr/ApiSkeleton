@@ -1,5 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Login;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Logout;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.RefreshToken;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.User.Register;
+using RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.GetRefreshToken;
+using RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.Login;
+using RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.Logout;
 using RifqiAmmarR.ApiSkeleton.Application.Services.Authentications.Register;
 
 namespace RifqiAmmarR.ApiSkeleton.Application.Services;
@@ -11,6 +17,9 @@ public static class DependencyInjection
         // Add application services here
         #region Authentication
         service.AddScoped<IRegisterAsync, CreateRegisterCommand>();
+        service.AddScoped<ILoginAsync, CreateLoginCommand>();
+        service.AddScoped<IGetRefreshToken, GetRefreshTokenService>();
+        service.AddScoped<ILogoutAsync, LogoutAsync>();
         #endregion
 
 

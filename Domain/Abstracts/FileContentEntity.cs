@@ -1,7 +1,6 @@
-﻿using Domain.Abstracts;
-using RifqiAmmarR.FinanTrackr.Domain.Interfaces;
+﻿using RifqiAmmarR.ApiSkeleton.Domain.Interfaces;
 
-namespace RifqiAmmarR.FinanTrackr.Domain.Abstracts;
+namespace RifqiAmmarR.ApiSkeleton.Domain.Abstracts;
 
 public abstract class FileContentEntity : ModifiedEntity, IHasFile
 {

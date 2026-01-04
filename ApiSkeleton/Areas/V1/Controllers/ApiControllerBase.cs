@@ -2,7 +2,7 @@
 using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
 
-namespace RifqiAmmarR.ApiSKeleton.Api.Areas.V1.Controllers;
+namespace RifqiAmmarR.ApiSkeleton.Api.Areas.V1.Controllers;
 
 [Route(ApiVersioning.V1.BaseRoute)]
 [ApiVersion(ApiVersioning.V1.Number)]

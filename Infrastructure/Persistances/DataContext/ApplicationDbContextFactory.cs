@@ -1,10 +1,9 @@
-﻿using Infrastructure.Persistances;
-using Infrastructure.Persistances.DataContext;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistances;
 
-namespace ApiSkeleton.Infrastructure.Persistances.DataContext;
+namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Persistances.DataContext;
 
 public class ApplicationDbContextFactory
     : IDesignTimeDbContextFactory<ApplicationDbContext>
