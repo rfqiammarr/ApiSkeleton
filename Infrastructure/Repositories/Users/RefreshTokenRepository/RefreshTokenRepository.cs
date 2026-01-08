@@ -11,14 +11,14 @@ using System.Security.Claims;
 
 namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Repositories.Users.RefreshTokenRepository;
 
-public class GetRefreshTokenRepository : IGetRefreshTokenRepository
+public class RefreshTokenRepository : IRefreshTokenRepository
 {
     private readonly IAppDbContext _context;
     private readonly JwtOptions _jwtOptions;
     private readonly IAuthService _authService;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public GetRefreshTokenRepository(IAppDbContext context, IOptions<JwtOptions> jwtOptions, IAuthService authService, IHttpContextAccessor httpContextAccessor)
+    public RefreshTokenRepository(IAppDbContext context, IOptions<JwtOptions> jwtOptions, IAuthService authService, IHttpContextAccessor httpContextAccessor)
     {
         _context = context;
         _jwtOptions = jwtOptions.Value;
@@ -26,7 +26,7 @@ public class GetRefreshTokenRepository : IGetRefreshTokenRepository
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public async Task Handle(CancellationToken cancellationToken)
+    public async Task GetRefreshToken(CancellationToken cancellationToken)
     {
         var refreshToken = _httpContextAccessor.HttpContext?.Request.Cookies["refresh_token"];
         if (string.IsNullOrEmpty(refreshToken))
@@ -83,5 +83,42 @@ public class GetRefreshTokenRepository : IGetRefreshTokenRepository
 
         _authService.SetAccessTokenCookie(newAccessToken);
         _authService.SetRefreshTokenCookie(newRefreshToken);
+    }
+
+    public async Task DeletedOldRefreshToken(CancellationToken cancellationToken)
+    {
+        await _context.RefreshTokens
+                    .Where(x => x.ExpiresAt <= DateTime.UtcNow)
+                    .ExecuteDeleteAsync(cancellationToken);
+    }
+
+    public async Task SetRefreshToken(Guid userId, string newGenerateAccessToken, string newGenerateRefreshToken, CancellationToken cancellationToken)
+    {
+        var existingToken = await _context.RefreshTokens
+                .FirstOrDefaultAsync(x => x.UserId == userId, cancellationToken);
+
+        if (existingToken != null)
+        {
+            existingToken.Token = newGenerateRefreshToken;
+            existingToken.ExpiresAt = DateTime.UtcNow.AddDays(_jwtOptions.RefreshTokenDays);
+            existingToken.RevokedAt = null;
+
+            _context.RefreshTokens.Update(existingToken);
+        }
+        else
+        {
+            await _context.RefreshTokens.AddAsync(new RefreshToken
+            {
+                UserId = userId,
+                Token = newGenerateRefreshToken,
+                ExpiresAt = DateTime.UtcNow.AddDays(_jwtOptions.RefreshTokenDays),
+                RevokedAt = null
+            }, cancellationToken);
+        }
+
+        await _context.SaveChangesAsync(cancellationToken);
+
+        _authService.SetAccessTokenCookie(newGenerateAccessToken);
+        _authService.SetRefreshTokenCookie(newGenerateRefreshToken);
     }
 }

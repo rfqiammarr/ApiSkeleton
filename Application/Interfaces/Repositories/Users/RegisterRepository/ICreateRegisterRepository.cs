@@ -4,5 +4,5 @@ namespace RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.Regi
 
 public interface ICreateRegisterRepository
 {
-    Task<UserDto> Handle(UserDto request, CancellationToken cancellationToken = default);
+    Task<UserDto> Handle(UserDto request, string hasher, CancellationToken cancellationToken = default);
 }

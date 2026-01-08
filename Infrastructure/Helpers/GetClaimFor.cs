@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
-namespace RifqiAmmarR.ApiSkeleton.Application.Common.Helpers.HttpContext;
+namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Helpers;
 
 public static class GetClaimFor
 {
@@ -10,5 +10,11 @@ public static class GetClaimFor
        return httpContextAccessor.HttpContext?
             .User?
             .FindFirst(ClaimTypes.Name)?.ValueType;
+    }
+
+    public static string? GetUserId(IHttpContextAccessor httpContextAccessor)
+    {
+        return httpContextAccessor.HttpContext?.User
+            .FindFirstValue(ClaimTypes.NameIdentifier);
     }
 }

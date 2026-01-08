@@ -1,10 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RifqiAmmarR.ApiSkeleton.Application.Common.Exceptions;
-using RifqiAmmarR.ApiSkeleton.Application.Common.Helpers.GuidGenerator;
+﻿using RifqiAmmarR.ApiSkeleton.Application.Common.Helpers.GuidGenerator;
 using RifqiAmmarR.ApiSkeleton.Application.DTOs.Users;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.RegisterRepository;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Security;
 using RifqiAmmarR.ApiSkeleton.Domain.Entities;
 
 namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Users.RegisterRepository;
@@ -12,32 +9,19 @@ namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Users.RegisterRepo
 public class CreateRegisterRepository : ICreateRegisterRepository
 {
     private readonly IAppDbContext _context;
-    private readonly IPasswordHasher _hasher;
 
-    public CreateRegisterRepository(IAppDbContext context, IPasswordHasher hasher)
+    public CreateRegisterRepository(IAppDbContext context)
     {
         _context = context;
-        _hasher = hasher;
     }
 
-    public async Task<UserDto> Handle(UserDto request, CancellationToken cancellationToken = default)
+    public async Task<UserDto> Handle(UserDto request, string hasher, CancellationToken cancellationToken = default)
     {
-        var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(
-        u => u.Username == request.Username || u.Email == request.Email,
-        cancellationToken);
-
-        if (user != null)
-        {
-            throw new ConflictException("Username or Email already exists.");
-        }
-
-        var hash = _hasher.Hash(request.Password);
-
         var data = new User
         {
             Id = GuidGenerator.New(),
             Username = request.Username,
-            PasswordHash = hash,
+            PasswordHash = hasher,
             Email = request.Email,
             IsActive = true,
             RoleId = 2,

@@ -4,5 +4,5 @@ namespace RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Users.Login;
 
 public interface ILoginAsync
 {
-    Task LoginAsync(UserDto request);
+    Task Handle(UserDto request, CancellationToken cancellationToken);
 }

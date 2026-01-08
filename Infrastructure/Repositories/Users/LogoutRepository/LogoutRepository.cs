@@ -2,44 +2,34 @@
 using Microsoft.EntityFrameworkCore;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.LogoutRepository;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
-using System.Security.Claims;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Helpers;
 
 namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Repositories.Users.LogoutRepository;
 
-public class LogoutRepository : ILogoutRepository
+public class LogoutRepository(
+    IAppDbContext context,
+    IHttpContextAccessor httpContextAccessor) : ILogoutRepository
 {
-    private readonly IAppDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public LogoutRepository(
-        IAppDbContext context,
-        IHttpContextAccessor httpContextAccessor)
-    {
-        _context = context;
-        _httpContextAccessor = httpContextAccessor;
-    }
-
     public async Task Handle(CancellationToken cancellationToken = default)
     {
-        var httpContext = _httpContextAccessor.HttpContext;
+        var httpContext = httpContextAccessor.HttpContext;
         if (httpContext == null)
             return;
 
-        var userIdClaim = httpContext.User
-            .FindFirstValue(ClaimTypes.NameIdentifier);
+        var userIdClaim = GetClaimFor.GetUserId(httpContextAccessor);
 
         if (!Guid.TryParse(userIdClaim, out var userId))
             return;
 
-        var token = await _context.RefreshTokens
+        var token = await context.RefreshTokens
             .FirstOrDefaultAsync(
                 x => x.UserId == userId && x.RevokedAt == null,
                 cancellationToken);
 
         if (token != null)
         {
-            _context.RefreshTokens.Remove(token);
-            await _context.SaveChangesAsync(cancellationToken);
+            context.RefreshTokens.Remove(token);
+            await context.SaveChangesAsync(cancellationToken);
         }
 
         httpContext.Response.Cookies.Delete("access_token");

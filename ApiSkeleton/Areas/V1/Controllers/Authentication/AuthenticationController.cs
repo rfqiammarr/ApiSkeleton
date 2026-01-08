@@ -43,13 +43,13 @@ public class AuthenticationController : ApiControllerBase
             Email = command.Email
         };
 
-        var result = await _userRegisterService.RegisterAsync(request, cancellationToken);
+        var result = await _userRegisterService.Handle(request, cancellationToken);
 
         return CreatedAtAction(nameof(Register), result.Username);
     }
 
     [HttpPost(ApiEndPoint.V1.Authentications.RouteTemplateFor.Login)]
-    public async Task<IActionResult> Login(LoginRequest command)
+    public async Task<IActionResult> Login(LoginRequest command, CancellationToken cancellationToken)
     {
         try
         {
@@ -60,7 +60,7 @@ public class AuthenticationController : ApiControllerBase
                 Password = command.Password
             };
 
-            await _loginAsync.LoginAsync(request);
+            await _loginAsync.Handle(request, cancellationToken);
 
             return Ok();
         }
