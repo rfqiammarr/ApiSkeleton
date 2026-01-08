@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RifqiAmmarR.ApiSkeleton.Application.Common.Exceptions;
 using RifqiAmmarR.ApiSkeleton.Application.Common.Helpers.GuidGenerator;
 using RifqiAmmarR.ApiSkeleton.Application.DTOs.Users;
@@ -7,20 +6,17 @@ using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.Register
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Security;
 using RifqiAmmarR.ApiSkeleton.Domain.Entities;
-using System.Security.Claims;
 
 namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Users.RegisterRepository;
 
 public class CreateRegisterRepository : ICreateRegisterRepository
 {
     private readonly IAppDbContext _context;
-    private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IPasswordHasher _hasher;
 
-    public CreateRegisterRepository(IAppDbContext context, IHttpContextAccessor httpContextAccessor, IPasswordHasher hasher)
+    public CreateRegisterRepository(IAppDbContext context, IPasswordHasher hasher)
     {
         _context = context;
-        _httpContextAccessor = httpContextAccessor;
         _hasher = hasher;
     }
 
@@ -36,10 +32,6 @@ public class CreateRegisterRepository : ICreateRegisterRepository
         }
 
         var hash = _hasher.Hash(request.Password);
-
-        var CreatedBy = _httpContextAccessor.HttpContext?
-         .User
-         .FindFirstValue(ClaimTypes.Name);
 
         var data = new User
         {
