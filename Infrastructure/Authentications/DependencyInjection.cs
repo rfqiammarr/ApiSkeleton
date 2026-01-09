@@ -1,13 +1,13 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Infrastructure.Authentications;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Authentication;
 using RifqiAmmarR.ApiSkeleton.Infrastructure.Authentications;
-using RifqiAmmarR.ApiSKeleton.Infrastructure.Authentications;
 using System.Text;
 
-namespace Infrastructure.Authentications;
+namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Authentications;
 
 public static class DependencyInjection
 {
@@ -44,6 +44,10 @@ public static class DependencyInjection
                 }
             };
         });
+
+        service.AddAuthorizationBuilder()
+            .AddPolicy("RequireManager", policy =>
+                policy.RequireRole("Manager", "Admin"));
 
         service.AddScoped<IAuthService, AuthService>();
         service.AddHttpContextAccessor();

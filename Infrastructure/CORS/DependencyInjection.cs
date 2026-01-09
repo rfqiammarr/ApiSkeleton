@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.CORS;
 
 namespace Infrastructure.CORS;
 

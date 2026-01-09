@@ -1,4 +1,4 @@
-﻿namespace Infrastructure.CORS;
+﻿namespace RifqiAmmarR.ApiSKeleton.Infrastructure.CORS;
 
 public class CorsOptions
 {

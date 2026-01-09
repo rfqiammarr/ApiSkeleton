@@ -10,7 +10,7 @@ namespace RifqiAmmarR.ApiSKeleton.Api.Areas.V1.Controllers.Masters;
 
 public class RoleController(IGetManyRolesQuery _getManyRoles) : ApiControllerBase
 {
-    [Authorize]
+    [Authorize(Policy = "RequireManager")]
     [HttpGet]
     [Produces(typeof(ListResponse<GetRoleResponse>))]
     public async Task<ActionResult<ListResponse<GetRoleResponse>>> GetManyRoles(CancellationToken cancellationToken)

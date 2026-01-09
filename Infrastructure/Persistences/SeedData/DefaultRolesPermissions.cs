@@ -13,7 +13,7 @@ public static class DefaultRolesPermissions
         "USER.READ",
         "USER.CREATE",
         "USER.UPDATE",
-        "USER.DELETE",
+        "USER.DELETE"
         //"MODULE.ACTION",
         //"ORDER.APPROVE",
         //"PAYMENT.REFUND",

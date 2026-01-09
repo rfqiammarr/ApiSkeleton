@@ -1,9 +1,9 @@
-﻿using Infrastructure.CORS;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RifqiAmmarR.ApiSkeleton.Api.Middlewares;
 using RifqiAmmarR.ApiSkeleton.Application;
 using RifqiAmmarR.ApiSkeleton.Infrastructure;
 using RifqiAmmarR.ApiSKeleton.Infrastructure.Authentications;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.CORS;
 using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.Extension;
 using Scalar.AspNetCore;
 
@@ -36,7 +36,7 @@ await app.InitializeDatabaseAsync();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    app.MapScalarApiReference("/scalar");
+    app.MapScalarApiReference("/docs");
 }
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
