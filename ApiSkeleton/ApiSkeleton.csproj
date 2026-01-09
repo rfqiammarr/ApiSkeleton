@@ -26,7 +26,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\V1\Controllers\Modules\" />
-    <Folder Include="Contracts\Roles\Commands\" />
     <Folder Include="Filters\" />
   </ItemGroup>
 

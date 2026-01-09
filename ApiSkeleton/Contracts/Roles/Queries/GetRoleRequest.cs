@@ -2,5 +2,5 @@
 
 public sealed record class GetRoleRequest
 {
-    public Guid RoleId { get; init; }
+    public int RoleId { get; init; }
 }

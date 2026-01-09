@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Masters.Role.GetManyRolesRepository;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Masters.Roles;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.LogoutRepository;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.RefreshTokenRepository;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.RegisterRepository;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.UserRepository;
 using RifqiAmmarR.ApiSkeleton.Infrastructure.Repositories.Users.LogoutRepository;
 using RifqiAmmarR.ApiSkeleton.Infrastructure.Repositories.Users.RefreshTokenRepository;
-using RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Masters.Roles.GetManyRolesRepository;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Masters.Roles;
 using RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Users.RegisterRepository;
 using RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Users.UserRepository;
 
@@ -23,7 +23,7 @@ public static class DependencyInjection
          services.AddScoped<ICreateRegisterRepository, CreateRegisterRepository>();
         #endregion
         #region Masters
-        services.AddScoped<IGetManyRolesRepository, GetManyRolesRepository>();
+        services.AddScoped<IRolesRepository, RoleRepository>();
         #endregion
         return services;
     }
