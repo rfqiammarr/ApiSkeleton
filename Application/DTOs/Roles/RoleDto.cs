@@ -8,5 +8,5 @@ public class RoleDto
     public string CreatedBy { get; set; } = default!;
     public bool? IsDeleted { get; set; }
     public DateTime? Modified { get; set; }
-    public string ModifiedBy { get; set; } = default!;
+    public string? ModifiedBy { get; set; } = default!;
 }
