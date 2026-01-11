@@ -4,7 +4,7 @@ using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Masters.Roles;
 
 namespace RifqiAmmarR.ApiSkeleton.Application.Services.Masters.Roles;
 
-public class RoleService(IRolesRepository _roleRepository) : IRoleService
+public sealed class RoleService(IRolesRepository _roleRepository) : IRoleService
 {
     public async Task<RoleDto> CreateRoleService(RoleDto roleDto, CancellationToken cancellationToken)
     {

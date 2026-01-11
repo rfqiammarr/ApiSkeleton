@@ -6,7 +6,7 @@ public class Role
     public string RoleName { get; set; } = default!;
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public string CreatedBy { get; set; } = default!;
-    public bool IsDeleted { get; set; }
+    public bool IsDeleted { get; set; } = false;
     public DateTime? Modified { get; set; }
     public string? ModifiedBy { get; set; }
 

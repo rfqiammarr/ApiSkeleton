@@ -4,7 +4,7 @@ namespace RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Masters.Pe
 
 public interface IPermissionRepository
 {
-    Task<IEnumerable<PermissionDto>> GetManyPermissionsRepositories(CancellationToken cancellationToken);
+    Task<IEnumerable<PermissionDto>> GetManyPermissionsRepository(CancellationToken cancellationToken);
     Task<PermissionDto> GetOnePermissionRepository(PermissionDto permissionDto, CancellationToken cancellationToken);
     Task<PermissionDto> CreatePermissionRepository(PermissionDto permissionDto, CancellationToken cancellationToken);
     Task<PermissionDto> UpdatePermissionRepository(PermissionDto permissionDto, CancellationToken cancellationToken);

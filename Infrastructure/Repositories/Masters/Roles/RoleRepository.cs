@@ -15,7 +15,7 @@ public class RoleRepository(IAppDbContext _context, IHttpContextAccessor _httpCo
     {
         var isRoleExist = await _context.Roles
             .AsNoTracking()
-            .AnyAsync(x => x.RoleId == roleDto.RoleId, cancellationToken);
+            .AnyAsync(x => x.RoleId == roleDto.RoleId && !x.IsDeleted, cancellationToken);
 
         if(isRoleExist)
             throw new BadRequestException("Role already exists.");
@@ -39,7 +39,6 @@ public class RoleRepository(IAppDbContext _context, IHttpContextAccessor _httpCo
             RoleName = role.RoleName,
             CreatedAt = role.CreatedAt,
             CreatedBy = role.CreatedBy,
-            IsDeleted = role.IsDeleted
         };
     }
 
