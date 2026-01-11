@@ -11,7 +11,7 @@ using RifqiAmmarR.ApiSKeleton.Api.Contracts.Roles.Queries;
 
 namespace RifqiAmmarR.ApiSKeleton.Api.Areas.V1.Controllers.Masters;
 
-[Authorize(Policy = ApiEndPoint.AuthorizePolicy)]
+[Authorize(Policy = ApiEndPoint.RequireManager)]
 public class RoleController(IRoleService _getManyRoles) : ApiControllerBase
 {
     [HttpGet]
@@ -68,7 +68,7 @@ public class RoleController(IRoleService _getManyRoles) : ApiControllerBase
             RoleName = roleDto.RoleName,
         };
 
-        return CreatedAtAction(nameof(GetOneRole), new { roleId = response.RoleId }, response);
+        return CreatedAtAction(nameof(CreateRole), new { roleId = response.RoleId }, response);
     }
 
     [HttpPut(ApiEndPoint.V1.RouteTemplateFor.Masters.Roles.RoleId)]

@@ -2,4 +2,5 @@
 
 public sealed record class GetPermissionRequest
 {
+    public int PermissionId { get; set; }
 }

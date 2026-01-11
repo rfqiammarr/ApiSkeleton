@@ -2,7 +2,7 @@
 
 public static class ApiEndPoint
 {
-    public const string AuthorizePolicy = "RequireManager";
+    public const string RequireManager = "RequireManager";
     public static class V1
     {
         public static class RouteTemplateFor
@@ -14,6 +14,10 @@ public static class ApiEndPoint
                 {
                     //public const string Segment = nameof(Roles);
                     public const string RoleId = "{RoleId}";
+                }
+                public static class Permissions
+                {
+                    public const string PermissionId = "{permissionId}";
                 }
             }
         }

@@ -2,4 +2,5 @@
 
 public sealed record class PermissionRequest
 {
+    public string PermissionCode { get; set; } = string.Empty;
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Masters.Permissions;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Masters.Roles;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.LogoutRepository;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.RefreshTokenRepository;
@@ -6,6 +7,7 @@ using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.Register
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.UserRepository;
 using RifqiAmmarR.ApiSkeleton.Infrastructure.Repositories.Users.LogoutRepository;
 using RifqiAmmarR.ApiSkeleton.Infrastructure.Repositories.Users.RefreshTokenRepository;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Masters.Permissions;
 using RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Masters.Roles;
 using RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Users.RegisterRepository;
 using RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Users.UserRepository;
@@ -24,6 +26,7 @@ public static class DependencyInjection
         #endregion
         #region Masters
         services.AddScoped<IRolesRepository, RoleRepository>();
+        services.AddScoped<IPermissionRepository, PermissionRepository>();
         #endregion
         return services;
     }
