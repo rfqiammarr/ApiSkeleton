@@ -1,117 +1,80 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using RifqiAmmarR.ApiSkeleton.Application.Common.Exceptions;
+﻿using Microsoft.EntityFrameworkCore;
+using RifqiAmmarR.ApiSkeleton.Application.Common.Extensions;
+using RifqiAmmarR.ApiSkeleton.Application.Common.Responses;
 using RifqiAmmarR.ApiSkeleton.Application.DTOs.Permissions;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Masters.Permissions;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
 using RifqiAmmarR.ApiSkeleton.Domain.Entities;
-using RifqiAmmarR.ApiSKeleton.Infrastructure.Helpers;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.DataContext;
 
 namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Masters.Permissions;
 
-public sealed class PermissionRepository(IAppDbContext _context, IHttpContextAccessor _httpContextAccessor) : IPermissionRepository
+public sealed class PermissionRepository(IAppDbContext _context) : IPermissionRepository
 {
-    public async Task<PermissionDto> CreatePermissionRepository(PermissionDto permissionDto, CancellationToken cancellationToken)
+    public async Task CreatePermissionRepository(Permission entity, CancellationToken cancellationToken)
     {
-        var isPermissionExist = await _context.Permissions
-            .AnyAsync(x => x.PermissionCode == permissionDto.PermissionCode && !x.IsDeleted, cancellationToken);
-
-        if (isPermissionExist)
-            throw new BadRequestException("Permission already exists.");
-
-       var permission = new Permission
-        {
-            PermissionCode = permissionDto.PermissionCode,
-            CreatedAt = DateTime.UtcNow,
-            CreatedBy = GetClaimFor.GetUsername(_httpContextAccessor) ?? "System",
-        };
-
-        _ = await _context.Permissions.AddAsync(permission, cancellationToken);
-        _ = await _context.SaveChangesAsync(cancellationToken);
-
-        return new PermissionDto
-        {
-            PermissionId = permission.PermissionId,
-            PermissionCode = permission.PermissionCode,
-            CreatedAt = permission.CreatedAt,
-            CreatedBy = permission.CreatedBy,
-        };
+        await _context.Permissions.AddAsync(entity, cancellationToken);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task DeletePermissionRepository(PermissionDto permissionDto, CancellationToken cancellationToken)
+    public async Task PermanentDeletePermissionRepository(Permission entityData, CancellationToken cancellationToken)
     {
-        var permission = await _context.Permissions
-            .FirstOrDefaultAsync(x => x.PermissionId == permissionDto.PermissionId && !x.IsDeleted, cancellationToken);
-
-        if (permission == null)
-            throw new NotFoundException("Permission not found.");
-        
-        permission.IsDeleted = true;
-        permission.Modified = DateTime.UtcNow;
-        permission.ModifiedBy = GetClaimFor.GetUsername(_httpContextAccessor) ?? "System";
-        
-        _ = await _context.SaveChangesAsync(cancellationToken);
+        _context.Permissions.Remove(entityData);
+        await _context.SaveChangesAsync(cancellationToken);
     }
 
-    public async Task<IEnumerable<PermissionDto>> GetManyPermissionsRepository(CancellationToken cancellationToken)
+    public async Task<PaginatedListResponse<PermissionDto>> GetManyPermissionsRepository(int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        var permissions = await _context.Permissions
-            .AsNoTracking()
-            .Where(x => !x.IsDeleted)
-            .Select(x => new PermissionDto
-            {
-                PermissionId = x.PermissionId,
-                PermissionCode = x.PermissionCode,
-                CreatedAt = x.CreatedAt,
-                CreatedBy = x.CreatedBy,
-                Modified = x.Modified,
-                ModifiedBy = x.ModifiedBy
-            })
-            .ToListAsync(cancellationToken);
+        var query = _context.Permissions
+          .AsNoTracking()
+          .Where(x => !x.IsDeleted)
+          .Select(x => new PermissionDto
+          {
+              PermissionId = x.PermissionId,
+              PermissionCode = x.PermissionCode,
+              CreatedAt = x.CreatedAt,
+              CreatedBy = x.CreatedBy,
+              Modified = x.Modified,
+              ModifiedBy = x.ModifiedBy
+          });
 
-        return permissions;
+        return await query
+            .OrderBy(x => x.PermissionCode)
+            .ToPaginatedListAsync(pageNumber, pageSize, cancellationToken);
     }
 
-    public async Task<PermissionDto> GetOnePermissionRepository(PermissionDto permissionDto, CancellationToken cancellationToken)
+    public async Task<PermissionDto?> GetOnePermissionByIdRepository(int id, CancellationToken cancellationToken)
     {
-        var permission = await _context.Permissions
-            .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.PermissionId == permissionDto.PermissionId && !x.IsDeleted, cancellationToken);
-        if (permission == null)
-            throw new NotFoundException("Permission not found.");
-        return new PermissionDto
+        return await _context.Permissions.AsNoTracking()
+        .Where(x => x.PermissionId == id && !x.IsDeleted)
+        .Select(x => new PermissionDto
         {
-            PermissionId = permission.PermissionId,
-            PermissionCode = permission.PermissionCode,
-            CreatedAt = permission.CreatedAt,
-            CreatedBy = permission.CreatedBy,
-            Modified = permission.Modified,
-            ModifiedBy = permission.ModifiedBy
-        };
+            PermissionId = x.PermissionId,
+            PermissionCode = x.PermissionCode,
+            CreatedAt = x.CreatedAt,
+            CreatedBy = x.CreatedBy,
+            Modified = x.Modified,
+            ModifiedBy = x.ModifiedBy
+        })
+        .SingleOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<PermissionDto> UpdatePermissionRepository(PermissionDto permissionDto, CancellationToken cancellationToken)
+    public async Task<Permission?> GetOnePermissionByIdForUpdateRepository(int id, CancellationToken cancellationToken)
     {
-        var permission = await _context.Permissions
-            .FirstOrDefaultAsync(x => x.PermissionId == permissionDto.PermissionId && !x.IsDeleted, cancellationToken);
-        
-        if (permission == null)
-            throw new NotFoundException("Permission not found.");
-        
-        permission.PermissionCode = permissionDto.PermissionCode;
-        permission.Modified = DateTime.UtcNow;
-        permission.ModifiedBy = GetClaimFor.GetUsername(_httpContextAccessor) ?? "System";
-        
-        _ =  await _context.SaveChangesAsync(cancellationToken);
-        
-        return new PermissionDto
-        {
-            PermissionId = permission.PermissionId,
-            PermissionCode =  permission.PermissionCode,
-            CreatedAt = permission.CreatedAt,
-            CreatedBy = permission.CreatedBy,
-            Modified = permission.Modified,
-            ModifiedBy = permission.ModifiedBy
-        };
+        return await _context.Permissions
+            .SingleOrDefaultAsync(
+                x => x.PermissionId == id && !x.IsDeleted,
+                cancellationToken);
+    }
+
+    public async Task UpdatePermissionRepository(Permission permission, CancellationToken cancellationToken)
+    {
+        _context.Permissions.Update(permission);
+        await _context.SaveChangesAsync(cancellationToken);
+    }
+
+    public async Task<bool> IsPermissionDataExistRepository(string name, CancellationToken cancellationToken)
+    {
+         return await _context.Permissions
+            .AnyAsync(x => x.PermissionCode == name && !x.IsDeleted, cancellationToken);
     }
 }

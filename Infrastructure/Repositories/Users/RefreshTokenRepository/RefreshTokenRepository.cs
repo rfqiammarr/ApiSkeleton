@@ -4,9 +4,9 @@ using Microsoft.Extensions.Options;
 using RifqiAmmarR.ApiSkeleton.Application.DTOs.Users;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.RefreshTokenRepository;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Authentication;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
 using RifqiAmmarR.ApiSkeleton.Domain.Entities;
 using RifqiAmmarR.ApiSKeleton.Infrastructure.Authentications;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.DataContext;
 using System.Security.Claims;
 
 namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Repositories.Users.RefreshTokenRepository;

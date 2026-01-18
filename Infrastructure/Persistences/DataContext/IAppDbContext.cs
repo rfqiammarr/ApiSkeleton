@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RifqiAmmarR.ApiSkeleton.Domain.Entities;
 
-namespace RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
+namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.DataContext;
 
 public interface IAppDbContext
 {

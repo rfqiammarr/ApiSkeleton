@@ -5,5 +5,5 @@ namespace RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.User
 
 public interface IUserRepository
 {
-    public Task<bool> IsUsernameOrEmailHasAlreadyExist(string? userName, string? email, CancellationToken cancellationToken = default);
+    public Task<bool> IsUsernameOrEmailHasAlreadyExist(string? userName, string? email, CancellationToken cancellationToken);
 }

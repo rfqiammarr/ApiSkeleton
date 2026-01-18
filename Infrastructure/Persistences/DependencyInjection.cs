@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
 using RifqiAmmarR.ApiSkeleton.Infrastructure.Persistences.DataContext;
 using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.DataContext;
 
 namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Persistences;
 

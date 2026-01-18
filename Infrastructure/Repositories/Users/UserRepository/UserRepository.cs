@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.UserRepository;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.DataContext;
 
 namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Users.UserRepository;
 

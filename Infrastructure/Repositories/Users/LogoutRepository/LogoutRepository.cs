@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using RifqiAmmarR.ApiSkeleton.Application.Common.Helpers.GetClaims;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.LogoutRepository;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
-using RifqiAmmarR.ApiSKeleton.Infrastructure.Helpers;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.DataContext;
 
 namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Repositories.Users.LogoutRepository;
 

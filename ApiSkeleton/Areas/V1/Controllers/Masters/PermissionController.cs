@@ -3,9 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RifqiAmmarR.ApiSkeleton.Api.Areas.V1.Controllers;
 using RifqiAmmarR.ApiSkeleton.Application.Common.Constans;
-using RifqiAmmarR.ApiSkeleton.Application.Common.Extensions;
+using RifqiAmmarR.ApiSkeleton.Application.Common.Responses;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Masters.Permissions;
 using RifqiAmmarR.ApiSkeleton.Application.Services.Masters.Constants;
+using RifqiAmmarR.ApiSKeleton.Api.Contracts.Global.Queries;
 using RifqiAmmarR.ApiSKeleton.Api.Contracts.Permissions.Commands;
 using RifqiAmmarR.ApiSKeleton.Api.Contracts.Permissions.Queries;
 
@@ -16,33 +17,18 @@ public sealed class PermissionController(IPermissionService _service) : ApiContr
 {
     [HttpGet]
     [Produces(typeof(ListResponse<GetPermissionResponse>))]
-    public async Task<ActionResult<ListResponse<GetPermissionResponse>>> GetManyPermissions(CancellationToken cancellationToken)
+    public async Task<ActionResult<PaginatedListResponse<GetPermissionResponse>>> GetManyPermissions([FromQuery] PaginateRequest paginateRequest, CancellationToken cancellationToken)
     {
-        var permission = await _service.GetManyPermissionsService(cancellationToken);
-
-        var response = permission.Select(x => new GetPermissionResponse
-        {
-            PermissionId = x.PermissionId,
-            PermissionCode = x.PermissionCode,
-        })
-        .ToList()
-        .ToListResponse();
-
+        var response = await _service.GetPermissionsService(paginateRequest.PageNumber,paginateRequest.PageSize, cancellationToken);
         return Ok(response);
     }
 
     [HttpGet(ApiEndPoint.V1.RouteTemplateFor.Masters.Permissions.PermissionId)]
     [Produces(typeof(GetPermissionResponse))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<GetPermissionResponse>> GetOnePermission([FromRoute] GetPermissionRequest query, CancellationToken cancellationToken)
+    public async Task<ActionResult<GetPermissionResponse>> GetOnePermission([FromRoute] int permissionId, CancellationToken cancellationToken)
     {
-        var permissionData = await _service.GetOnePermissionService(new()
-        {
-            PermissionId = query.PermissionId,
-        }, cancellationToken);
-
-        var response = new GetPermissionResponse { PermissionId = permissionData.PermissionId, PermissionCode = permissionData.PermissionCode };
-
+        var response = await _service.GetOnePermissionService(permissionId, cancellationToken);
         return Ok(response);
     }
 
@@ -87,10 +73,7 @@ public sealed class PermissionController(IPermissionService _service) : ApiContr
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeletePermission([FromRoute] int PermissionId, CancellationToken cancellationToken)
     {
-        await _service.DeletePermissionService(new()
-        {
-            PermissionId = PermissionId,
-        }, cancellationToken);
+        await _service.DeletePermissionService(PermissionId, cancellationToken);
         return NoContent();
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
 using RifqiAmmarR.ApiSkeleton.Domain.Entities;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.DataContext;
 using System.Reflection;
 
 namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Persistences.DataContext;

@@ -1,8 +1,8 @@
 ﻿using RifqiAmmarR.ApiSkeleton.Application.Common.Helpers.GuidGenerator;
 using RifqiAmmarR.ApiSkeleton.Application.DTOs.Users;
 using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Repositories.Users.RegisterRepository;
-using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
 using RifqiAmmarR.ApiSkeleton.Domain.Entities;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.DataContext;
 
 namespace RifqiAmmarR.ApiSKeleton.Infrastructure.Repositories.Users.RegisterRepository;
 

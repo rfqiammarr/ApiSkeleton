@@ -1,6 +1,6 @@
-﻿using RifqiAmmarR.ApiSkeleton.Application.Interfaces.Services.Persistences;
-using RifqiAmmarR.ApiSkeleton.Domain.Entities;
+﻿using RifqiAmmarR.ApiSkeleton.Domain.Entities;
 using RifqiAmmarR.ApiSkeleton.Infrastructure.Persistences.SeedData;
+using RifqiAmmarR.ApiSKeleton.Infrastructure.Persistences.DataContext;
 using System.Security.Claims;
 
 namespace RifqiAmmarR.ApiSkeleton.Infrastructure.Persistences.Seeders;
