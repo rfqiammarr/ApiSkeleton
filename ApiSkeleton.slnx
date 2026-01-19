@@ -3,4 +3,6 @@
   <Project Path="Application/Application.csproj" />
   <Project Path="Domain/Domain.csproj" />
   <Project Path="Infrastructure/Infrastructure.csproj" />
+  <Project Path="ServiceClient/ServiceClient.csproj" Id="cd0a5daf-4560-457b-b5c8-b77e8484a2e3" />
+  <Project Path="UI/UI.csproj" Id="7fa3f5d2-63c0-4f97-bb71-e95c0e729040" />
 </Solution>
