@@ -76,20 +76,11 @@ public class RoleRepository(IAppDbContext _context, IHttpContextAccessor _httpCo
         return data;
     }
 
-    public async Task<RoleDto> GetOneRoleRepository(RoleDto roleDto, CancellationToken cancellationToken)
+    public async Task<Role?> GetOneRoleByIdRepository(int id, CancellationToken cancellationToken)
     {
-        var role = await _context.Roles
+        return await _context.Roles
             .AsNoTracking()
-            .FirstOrDefaultAsync(x => x.RoleId == roleDto.RoleId && !x.IsDeleted, cancellationToken);
-        
-        if (role == null)
-            throw new NotFoundException("Role not found.");
-
-        return new RoleDto
-        {
-            RoleId = role.RoleId,
-            RoleName = role.RoleName,
-        };
+            .SingleOrDefaultAsync(x => x.RoleId == id && !x.IsDeleted, cancellationToken);
     }
 
     public async Task<RoleDto> UpdateRoleRepository(RoleDto roleDto, CancellationToken cancellationToken)

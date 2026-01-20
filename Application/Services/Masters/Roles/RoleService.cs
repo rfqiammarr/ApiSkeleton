@@ -21,9 +21,20 @@ public sealed class RoleService(IRolesRepository _roleRepository) : IRoleService
         return await _roleRepository.GetManyRolesRepository(cancellationToken);
     }
 
-    public async Task<RoleDto> GetOneRoleService(RoleDto roleDto, CancellationToken cancellationToken)
+    public async Task<RoleDto> GetOneRoleService(int id, CancellationToken cancellationToken)
     {
-        return await _roleRepository.GetOneRoleRepository(roleDto, cancellationToken);
+        var data = await _roleRepository.GetOneRoleByIdRepository(id, cancellationToken);
+
+        return new RoleDto
+        {
+            RoleId = data!.RoleId,
+            RoleName = data.RoleName,
+            CreatedAt = data.CreatedAt,
+            CreatedBy = data.CreatedBy,
+            IsDeleted = data.IsDeleted,
+            Modified = data.Modified,
+            ModifiedBy = data.ModifiedBy
+        };
     }
 
     public async Task<RoleDto> UpdateRoleService(RoleDto roleDto, CancellationToken cancellationToken)

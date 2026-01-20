@@ -36,10 +36,7 @@ public class RoleController(IRoleService _getManyRoles) : ApiControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<GetRoleResponse>> GetOneRole([FromRoute] GetRoleRequest query, CancellationToken cancellationToken)
     {
-        var roleDto = await _getManyRoles.GetOneRoleService(new()
-        {
-            RoleId = query.RoleId
-        }, cancellationToken);
+        var roleDto = await _getManyRoles.GetOneRoleService(query.RoleId, cancellationToken);
 
         var response = new GetRoleResponse
         {
